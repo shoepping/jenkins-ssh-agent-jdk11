@@ -18,6 +18,7 @@ RUN apt-get install -y \
      dnsutils \
      gnupg2 \
      jq \
+     netcat \
      software-properties-common
 
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
