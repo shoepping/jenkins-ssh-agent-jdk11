@@ -15,6 +15,7 @@ RUN apt-get install -y \
      apt-transport-https \
      ca-certificates \
      curl \
+     dnsutils \
      gnupg2 \
      jq \
      software-properties-common
