@@ -1,10 +1,13 @@
-# docker build -t shoepping/jenkins-ssh-agent-jdk8:20.05.22 ./
+# docker build -t shoepping/jenkins-ssh-agent-jdk11:20.05.22 ./
 # docker login -u shoepping
-# docker push shoepping/jenkins-ssh-agent-jdk8:20.05.22
+# docker push shoepping/jenkins-ssh-agent-jdk11:20.05.22
+# https://hub.docker.com/r/jenkins/ssh-agent/tags
 FROM jenkins/ssh-agent:2.0.1-jdk11
 
-ENV DOCKER_VERSION=19.03.9
-ENV DOCKER_COMPOSE_VERSION=1.25.5
+# https://github.com/docker/docker-ce/releases
+ENV DOCKER_VERSION=19.03.11
+# https://github.com/docker/compose/releases
+ENV DOCKER_COMPOSE_VERSION=1.26.0
 ENV DEBIAN_DOCKER_VERSION=5:${DOCKER_VERSION}~3-0~debian-buster
 
 LABEL DOCKER_COMPOSE_VERSION=${DOCKER_COMPOSE_VERSION} \
