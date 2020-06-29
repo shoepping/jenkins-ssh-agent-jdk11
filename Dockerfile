@@ -4,21 +4,26 @@
 # https://hub.docker.com/r/jenkins/ssh-agent/tags
 FROM jenkins/ssh-agent:2.0.1-jdk11
 
-# https://github.com/docker/docker-ce/releases
-ENV DOCKER_VERSION=19.03.11
-ENV DEBIAN_DOCKER_VERSION=5:${DOCKER_VERSION}~3-0~debian-buster
+
+# https://github.com/Azure/azure-cli/releases
+ENV AZURE_CLI_VERSION=2.8.0
+ENV DEBIAN_AZURE_CLI_VERSION=${AZURE_CLI_VERSION}-1~buster
 
 # https://github.com/docker/compose/releases
 ENV DOCKER_COMPOSE_VERSION=1.26.0
 
-# https://github.com/Azure/azure-cli/releases
-ENV AZURE_CLI_VERSION=2.7.0
-ENV DEBIAN_AZURE_CLI_VERSION=${AZURE_CLI_VERSION}-1~buster
+# https://github.com/docker/docker-ce/releases
+ENV DOCKER_VERSION=19.03.12
+ENV DEBIAN_DOCKER_VERSION=5:${DOCKER_VERSION}~3-0~debian-buster
+
+# https://github.com/kubernetes/kubectl/releases
+ENV KUBECTL_VERSION=1.16.7
+ENV DEBIAN_KUBECTL_VERSION=${KUBECTL_VERSION}-00
 
 LABEL AZURE_CLI_VERSION=${AZURE_CLI_VERSION} \
       DOCKER_COMPOSE_VERSION=${DOCKER_COMPOSE_VERSION} \
-      DOCKER_VERSION=${DOCKER_VERSION}
-
+      DOCKER_VERSION=${DOCKER_VERSION} \
+      KUBECTL_VERSION=${KUBECTL_VERSION}
 
 RUN apt-get update
 RUN apt-get install -y \
@@ -66,3 +71,10 @@ RUN apt-get update
 RUN apt-cache madison azure-cli
 
 RUN apt-get install azure-cli=${DEBIAN_AZURE_CLI_VERSION}
+
+RUN apt-get update && sudo apt-get install -y apt-transport-https gnupg2
+RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+RUN apt-get update
+RUN apt-cache madison kubectl
+RUN apt-get install -y kubectl=${DEBIAN_KUBECTL_VERSION}
