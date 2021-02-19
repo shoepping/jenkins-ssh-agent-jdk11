@@ -25,6 +25,15 @@ RUN apt-get install -y \
      netcat \
      software-properties-common
 
+RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
+RUN add-apt-repository \
+    "deb [arch=amd64] https://apt.releases.hashicorp.com \
+    $(lsb_release -cs) \
+    main"
+
+RUN apt-get update
+RUN apt-get install -y terraform
+
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 RUN add-apt-repository \
     "deb [arch=amd64] https://download.docker.com/linux/debian \
