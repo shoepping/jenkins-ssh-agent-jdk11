@@ -5,11 +5,11 @@
 FROM jenkins/ssh-agent:3.0.0-jdk11
 
 # https://github.com/docker/docker-ce/releases
-ENV DOCKER_VERSION=19.03.13
+ENV DOCKER_VERSION=23.0.1
 ENV DEBIAN_DOCKER_VERSION=5:${DOCKER_VERSION}~3-0~debian-buster
 
 # https://github.com/docker/compose/releases
-ENV DOCKER_COMPOSE_VERSION=1.27.4
+ENV DOCKER_COMPOSE_VERSION=1.28.2
 
 LABEL DOCKER_COMPOSE_VERSION=${DOCKER_COMPOSE_VERSION} \
       DOCKER_VERSION=${DOCKER_VERSION}
